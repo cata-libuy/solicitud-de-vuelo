@@ -1,6 +1,8 @@
 class Department(object):
+    
     def __init__(self, name):
         self.name = name
+        self.aproover = None
 
     def __str__(self):
         return self.name
