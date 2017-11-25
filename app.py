@@ -9,6 +9,7 @@ from classes.travel_request import TravelRequest
 from classes.project import Project
 from classes.department import Department
 from classes.management import Management
+from classes.aditional_need import AditionalNeed, HotelReservation, Taxi, CarRent
 
 # name = raw_input('say your name...')
 # print ('hello '+name)
