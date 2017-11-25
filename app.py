@@ -10,6 +10,9 @@ from classes.project import Project
 from classes.department import Department
 from classes.management import Management
 from classes.aditional_need import AditionalNeed, HotelReservation, Taxi, CarRent
+from classes.airport import Airport
+from classes.journey import Journey
+from classes.journey_point import JourneyPoint
 
 # name = raw_input('say your name...')
 # print ('hello '+name)
