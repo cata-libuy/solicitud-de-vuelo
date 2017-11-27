@@ -20,9 +20,6 @@ from ui_classes.menu import Menu
 from ui_classes.menu_item import MenuItem
 from ui_classes.new_request_view import NewRequestView
 
-# name = raw_input('say your name...')
-# print ('hello '+name)
-
 class App(object):
 
     def __init__(self):
