@@ -7,5 +7,4 @@ class TravelReason(object):
         self.receiver = receiver
 
     def __str__(self):
-        return str(self.id) + self.reason_type
-    
+        return str(self.reason_type) + ', ' + ' con ' + self.receiver + ', ' + self.comments

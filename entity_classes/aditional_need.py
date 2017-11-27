@@ -12,11 +12,10 @@ class AditionalNeed(object):
             return 'Tipo no definido'
 
 class HotelReservation(AditionalNeed):
-    def __init__(self, id, comments = '', nights = 0, observations = ''):
+    def __init__(self, id, comments = '', nights = 0):
         type = 'Reserva de Hotel'
         super(HotelReservation, self).__init__(id, type, comments)
         self.nights = nights
-        self.observations = observations
 
     def __str__(self):
         return self.type

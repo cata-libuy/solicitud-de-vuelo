@@ -63,3 +63,18 @@ class TravelRequest(object):
 
     def set_urgent(self, urgent):
         self.urgent = urgent
+
+    def print_request(self):
+        print('---Solicitud de Vuelo---')
+        print(self.description)
+        print('Solicitante: ' + str(self.solicitant))
+        print('Aprobador: ' + str(self.aproover))
+        print('Motivo: ' + str(self.reason))
+        print('Trayecto: ' + str(self.journey))
+        estado = 'aprobada' if self.aprooved else 'no aprobada'
+        print('Estado: ' + estado)
+        if self.special_needs:
+            print('Adicionales:')
+            for aditional in self.special_needs:
+                print(str(aditional))
+        print('-------------------')

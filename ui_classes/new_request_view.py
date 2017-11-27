@@ -4,6 +4,7 @@ from entity_classes.travel_request import TravelRequest
 from entity_classes.travel_reason import TravelReason
 from entity_classes.journey import Journey
 from entity_classes.journey_point import JourneyPoint
+from entity_classes.aditional_need import HotelReservation, Taxi, CarRent
 
 class NewRequestView(object):
 
@@ -23,6 +24,7 @@ class NewRequestView(object):
         self.request.set_reason(self._choose_reason())
         self.request.set_aproover(self._choose_aproover())
         self.request.set_journey(self._choose_journey())
+        self.request.set_special_needs(self._choose_aditional_needs())
         return self.request
 
     def _choose_reason(self):
@@ -52,14 +54,40 @@ class NewRequestView(object):
                 print('Origen y destino no pueden ser iguales')
         o_date = raw_input('Ingrese fecha de salida... ')
         o_hour = raw_input('Ingrese hora de salida si desea... ')
-        # origen y destino
         origin = JourneyPoint(self.id, o_airport, o_date, o_hour)
-        destiny = JourneyPoint(self.id, d_airport)
-        # Regreso
+        destination = JourneyPoint(self.id, d_airport)
         arrival = raw_input('Ingrese fecha de regreso estimado... ')
-        return Journey(self.id, origin, destiny, arrival)
+        return Journey(self.id, origin, destination, arrival)
+
+    def _choose_aditional_needs(self):
+        print('')
+        print('Necesidades Adicionales')
+        aditional_needs = []
+        # hotel
+        hotel_needed = self._yes_no_question('¿Necesita hotel?')
+        if hotel_needed:
+            nights = int(raw_input('Ingrese numero de noches... '))
+            hotel = HotelReservation(self.id, nights)
+            print(hotel)
+            aditional_needs.append(hotel)
+        # Taxi
+        taxi_needed = self._yes_no_question('¿Necesita Taxi?')
+        if taxi_needed:
+            origin_address = raw_input('Ingrese dirección o punto de origen... ')
+            destination_address = raw_input('Ingrese dirección o punto de destino... ')
+            taxi = Taxi(self.id, origin_address, destination_address)
+            aditional_needs.append(taxi)
+        # CarRent
+        car_needed = self._yes_no_question('¿Necesita arriendo de vehículo?')
+        if car_needed:
+            car_type = raw_input('Ingrese tipo de vehiculo... ')
+            days = int(raw_input('Ingrese número de días... '))
+            car = CarRent(self.id, car_type, days)
+            aditional_needs.append(car)
+        return aditional_needs
 
     def _select_option(self, options, title, message):
+        print('')
         choosen_option = None
         counter = 1
         print(title)
@@ -73,3 +101,13 @@ class NewRequestView(object):
                 return choosen_option
             else:
                 print('Opción inválida')
+
+    def _yes_no_question(self, question):
+        print('')
+        answer = None
+        while answer not in [ 'si', 'no', ]:
+            answer = raw_input(question + ' si / no ')
+            if answer not in [ 'si', 'no', ]:
+                print('Ingrese opción válida')
+        result = True if answer == 'si' else False
+        return result

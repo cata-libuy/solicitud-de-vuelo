@@ -78,7 +78,7 @@ class App(object):
             self.travel_requests.append(new_request)
             print('')
             print('Nueva Solicitud creada:')
-            print(new_request)
+            print(new_request.print_request())
         else:
             print('Ocurrió un error al crear solicitud')
 
