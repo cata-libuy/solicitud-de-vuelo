@@ -1,18 +1,23 @@
 # -*- coding: utf-8 -*-
-from classes.user import User
-from classes.role import Role
-from classes.permission import Permission
-from classes.employee import Employee
-from classes.travel_reason import TravelReason
-from classes.reason_type import ReasonType
-from classes.travel_request import TravelRequest
-from classes.project import Project
-from classes.department import Department
-from classes.management import Management
-from classes.aditional_need import AditionalNeed, HotelReservation, Taxi, CarRent
-from classes.airport import Airport
-from classes.journey import Journey
-from classes.journey_point import JourneyPoint
+import sys
+# Clases entidad
+from entity_classes.user import User
+from entity_classes.role import Role
+from entity_classes.permission import Permission
+from entity_classes.employee import Employee
+from entity_classes.travel_reason import TravelReason
+from entity_classes.reason_type import ReasonType
+from entity_classes.travel_request import TravelRequest
+from entity_classes.project import Project
+from entity_classes.department import Department
+from entity_classes.management import Management
+from entity_classes.aditional_need import AditionalNeed, HotelReservation, Taxi, CarRent
+from entity_classes.airport import Airport
+from entity_classes.journey import Journey
+from entity_classes.journey_point import JourneyPoint
+# Clases borde
+from ui_classes.menu import Menu
+from ui_classes.new_request_view import NewRequestView
 
 # name = raw_input('say your name...')
 # print ('hello '+name)
@@ -20,13 +25,20 @@ from classes.journey_point import JourneyPoint
 class App(object):
 
     def __init__(self):
+        # entity_classes
         self.employees = []
         self.roles = {}
         self.travel_reasons = []
         self.travel_requests = []
         self.reason_types = []
         self.managements = []
+        self.employee = None
+        # control_clases
+        self.menu = {}
+
+        # run
         self.create_test_data()
+        self.init_main_menu()
 
     def create_test_data(self):
         # crea datos de prueba base para poder usar el app
@@ -35,6 +47,38 @@ class App(object):
         self._create_default_employees()
         self._create_default_reason_types()
         self._create_default_organization()
+        print('---------------------------')
+        self.employee = self.employees[0]
+        print('simulando login con ' + str(self.employee))
+        print('')
+
+    def init_main_menu(self):
+        items = [
+            { 'text': 'Solicitud de Vuelo', 'action': self.init_travel_submenu },
+            { 'text': 'Salir', 'action': sys.exit }
+        ]
+        self.menu = Menu('MENÚ PRINCIPAL', items)
+        self.menu.displayMenu()
+
+    def init_travel_submenu(self):
+        items = [
+            { 'text': 'Nueva Solicitud', 'action': self.new_travel_request },
+            { 'text': 'Volver', 'action': self.init_main_menu }
+        ]
+        self.menu = Menu('SUB MENÚ SOLICITUD DE VUELO', items)
+        self.menu.displayMenu()
+
+    def new_travel_request(self):
+        newId = len(self.travel_requests) + 1
+        view = RequestView(self.reason_types)
+        new_request = view.new_request(newId, self.employee)
+        if (new_request):
+            self.travel_requests.append(new_request)
+            print('')
+            print('Nueva Solicitud creada:')
+            print(new_request)
+        else:
+            print('Ocurrió un error al crear solicitud')
 
     def _create_default_roles(self):
         # crea roles

@@ -26,6 +26,9 @@ class TravelRequest(object):
     def __str__(self):
         return str(self.id) + ', ' + self.description
 
+    def new_request(self):
+        self.reason = Reason()
+
     def set_solicitant(self, solicitant):
         self.solicitant = solicitant
 
