@@ -11,4 +11,4 @@ class Management(object):
 
     def add_department(self, department):
         if department not in self.departments:
-            self.departments.append(department) 
+            self.departments.append(department)

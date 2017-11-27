@@ -70,8 +70,8 @@ class App(object):
 
     def new_travel_request(self):
         newId = len(self.travel_requests) + 1
-        view = RequestView(self.reason_types)
-        new_request = view.new_request(newId, self.employee)
+        view = NewRequestView(self.reason_types, self.employee, self.managements)
+        new_request = view.new_request(newId)
         if (new_request):
             self.travel_requests.append(new_request)
             print('')
