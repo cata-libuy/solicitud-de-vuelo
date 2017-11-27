@@ -21,12 +21,12 @@ class NewRequestView(object):
         self.id = id
         self.request = TravelRequest(id, self.solicitant)
         print('----Nueva Solicitud de Vuelo----')
-        # self.request.set_description(raw_input('Ingrese descripción... '))
-        # self.request.set_reason(self._choose_reason())
-        # self.request.set_aproover(self._choose_aproover())
-        # self.request.set_journey(self._choose_journey())
-        # self.request.set_special_needs(self._choose_aditional_needs())
-        # self.request.set_aprooved(self._yes_no_question('¿Es urgente?'))
+        self.request.set_description(raw_input('Ingrese descripción... '))
+        self.request.set_reason(self._choose_reason())
+        self.request.set_aproover(self._choose_aproover())
+        self.request.set_journey(self._choose_journey())
+        self.request.set_special_needs(self._choose_aditional_needs())
+        self.request.set_aprooved(self._yes_no_question('¿Es urgente?'))
         self.request.set_passengers(self._choose_passengers())
         return self.request
 

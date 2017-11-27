@@ -17,6 +17,7 @@ from entity_classes.journey import Journey
 from entity_classes.journey_point import JourneyPoint
 # Clases borde
 from ui_classes.menu import Menu
+from ui_classes.menu_item import MenuItem
 from ui_classes.new_request_view import NewRequestView
 
 # name = raw_input('say your name...')
@@ -56,16 +57,16 @@ class App(object):
 
     def init_main_menu(self):
         items = [
-            { 'text': 'Solicitud de Vuelo', 'action': self.init_travel_submenu },
-            { 'text': 'Salir', 'action': sys.exit }
+            MenuItem('Solicitud de Vuelo', self.init_travel_submenu),
+            MenuItem('Salir', sys.exit),
         ]
         self.menu = Menu('MENÚ PRINCIPAL', items)
         self.menu.displayMenu()
 
     def init_travel_submenu(self):
         items = [
-            { 'text': 'Nueva Solicitud', 'action': self.new_travel_request },
-            { 'text': 'Volver', 'action': self.init_main_menu }
+            MenuItem('Nueva Solicitud', self.new_travel_request),
+            MenuItem('Volver', self.init_main_menu),
         ]
         self.menu = Menu('SUB MENÚ SOLICITUD DE VUELO', items)
         self.menu.displayMenu()
