@@ -8,23 +8,26 @@ from entity_classes.aditional_need import HotelReservation, Taxi, CarRent
 
 class NewRequestView(object):
 
-    def __init__(self, reason_types, solicitant, managements, airports):
+    def __init__(self, reason_types, solicitant, managements, airports, employees):
         self.reason_types = reason_types
         self.solicitant = solicitant
         self.managements = managements
         self.request = None
         self.airports = airports
+        self.employees = employees
         print('')
 
     def new_request(self, id):
         self.id = id
         self.request = TravelRequest(id, self.solicitant)
         print('----Nueva Solicitud de Vuelo----')
-        self.request.set_description(raw_input('Ingrese descripción... '))
-        self.request.set_reason(self._choose_reason())
-        self.request.set_aproover(self._choose_aproover())
-        self.request.set_journey(self._choose_journey())
-        self.request.set_special_needs(self._choose_aditional_needs())
+        # self.request.set_description(raw_input('Ingrese descripción... '))
+        # self.request.set_reason(self._choose_reason())
+        # self.request.set_aproover(self._choose_aproover())
+        # self.request.set_journey(self._choose_journey())
+        # self.request.set_special_needs(self._choose_aditional_needs())
+        # self.request.set_aprooved(self._yes_no_question('¿Es urgente?'))
+        self.request.set_passengers(self._choose_passengers())
         return self.request
 
     def _choose_reason(self):
@@ -85,6 +88,20 @@ class NewRequestView(object):
             car = CarRent(self.id, car_type, days)
             aditional_needs.append(car)
         return aditional_needs
+
+    def _choose_passengers(self):
+        more = self._yes_no_question('¿Desea agregar acompañantes?')
+        selected = []
+        unselected = self.employees[:]
+        unselected.remove(self.solicitant)
+        while more and len(unselected) > 0:
+            passengers = []
+            passengers = unselected[:]
+            passenger = self._select_option(passengers, '', 'Seleccione acompañante... ')
+            more = self._yes_no_question('¿Desea otro?')
+            selected.append(passenger)
+            unselected.remove(passenger)
+        return selected
 
     def _select_option(self, options, title, message):
         print('')
