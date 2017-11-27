@@ -74,7 +74,11 @@ class TravelRequest(object):
         estado = 'aprobada' if self.aprooved else 'no aprobada'
         print('Estado: ' + estado)
         if self.special_needs:
-            print('Adicionales:')
+            print('Necesidades Adicionales:')
             for aditional in self.special_needs:
-                print(str(aditional))
+                print('- ' + str(aditional))
+        if self.passengers:
+            print('Pasajeros Adicionales:')
+            for aditional in self.passengers:
+                print('- ' + str(aditional))
         print('-------------------')
