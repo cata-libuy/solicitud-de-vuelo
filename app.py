@@ -33,6 +33,7 @@ class App(object):
         self.reason_types = []
         self.managements = []
         self.employee = None
+        self.airports = []
         # control_clases
         self.menu = {}
 
@@ -47,6 +48,7 @@ class App(object):
         self._create_default_employees()
         self._create_default_reason_types()
         self._create_default_organization()
+        self._create_default_airports()
         print('---------------------------')
         self.employee = self.employees[0]
         print('simulando login con ' + str(self.employee))
@@ -70,7 +72,7 @@ class App(object):
 
     def new_travel_request(self):
         newId = len(self.travel_requests) + 1
-        view = NewRequestView(self.reason_types, self.employee, self.managements)
+        view = NewRequestView(self.reason_types, self.employee, self.managements, self.airports)
         new_request = view.new_request(newId)
         if (new_request):
             self.travel_requests.append(new_request)
@@ -141,6 +143,11 @@ class App(object):
         for depto in self.managements[0].departments:
             print(' -' + str(depto))
 
+    def _create_default_airports(self):
+        airport_conce = Airport(1, 'C1', 'Concepción')
+        airport_stgo = Airport(2, 'S1', 'Santiago')
+        self.airports = [ airport_conce, airport_stgo ]
+        print('Aeropuertos creados')
 
 # run app!
 app = App()

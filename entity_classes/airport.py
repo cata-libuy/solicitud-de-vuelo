@@ -6,4 +6,4 @@ class Airport(object):
         self.city = city
 
     def __str__(self):
-        return self.airport_code
+        return self.airport_code + ', ' + self.city
