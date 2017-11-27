@@ -4,6 +4,7 @@ class TravelRequest(object):
         self,
         id,
         solicitant,
+        aproover = None,
         aprooved = False,
         department = None,
         description = '',
@@ -15,6 +16,7 @@ class TravelRequest(object):
         self.id = id
         self.solicitant = solicitant
         self.aprooved = aprooved
+        self.aproover = aproover
         self.department = department
         self.description = description
         self.journey = journey
@@ -31,6 +33,9 @@ class TravelRequest(object):
 
     def set_solicitant(self, solicitant):
         self.solicitant = solicitant
+
+    def set_aproover(self, aproover):
+        self.aproover = aproover
 
     def set_management(self, management):
         self.management = management

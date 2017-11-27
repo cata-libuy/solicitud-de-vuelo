@@ -16,10 +16,9 @@ class NewRequestView(object):
         self.id = id
         self.request = TravelRequest(id, self.solicitant)
         print('----Nueva Solicitud de Vuelo----')
-        description = raw_input('Ingrese descripción... ')
-        self.request.set_description(description)
-        reason = self._choose_reason()
-        self.request.set_reason(reason)
+        self.request.set_description(raw_input('Ingrese descripción... '))
+        self.request.set_reason(self._choose_reason())
+        self.request.set_aproover(self._choose_aproover())
         return self.request
 
     def _choose_reason(self):
@@ -29,11 +28,15 @@ class NewRequestView(object):
         comments = raw_input('Ingrese comentarios... ')
         return TravelReason(self.id, reason_type, comments, hour, receiver)
 
-    # def _choose_aproover(self):
-        # elegir gerencia
-        # elegir departamentos
-        # elegir proyecto
-        # elegir aprobador
+    def _choose_aproover(self):
+        selected_management = self._select_option(self.managements, 'Gerencias', 'Elija una gerencia... ')
+        selected_department = self._select_option(selected_management.departments, 'Departamentos', 'Elija un departamento... ')
+        selected_project = None
+        if len(selected_department.projects) > 0:
+            selected_project = self._select_option(selected_department.projects, 'Proyectos', 'Elija un proyecto... ')
+        aproovers = selected_management.get_aproovers(selected_department, selected_project)
+        selected_aproover = self._select_option(aproovers, 'Aprobador', 'Elija un aprobador... ')
+        return selected_aproover
 
     def _select_option(self, options, title, message):
         choosen_option = None

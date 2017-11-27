@@ -126,7 +126,7 @@ class App(object):
         print('Tipos de motivo creados')
 
     def _create_default_organization(self):
-        gerente = self.employees[3]
+        gerente = self.employees[2]
         gerencia_proyectos = Management(1, 'Gerencia de Proyectos', gerente)
         jefe1 = self.employees[3]
         jefe2 = self.employees[4]
@@ -140,9 +140,6 @@ class App(object):
         print('con departamentos')
         for depto in self.managements[0].departments:
             print(' -' + str(depto))
-
-
-
 
 
 # run app!
